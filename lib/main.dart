@@ -1,4 +1,4 @@
-import 'package:astrohelpme/screens/login/login.dart';
+import 'package:astrohelpme/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
