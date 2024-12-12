@@ -1,4 +1,5 @@
 import 'package:astrohelpme/model/LoginResponse.dart';
+import 'package:astrohelpme/model/RegistrationResponse.dart';
 
 import '../services/BaseApiService.dart';
 
@@ -12,4 +13,13 @@ class UserRepository {
     );
     return LoginResponse.fromJson(response as Map<String, dynamic>);
   }
+
+  Future<RegistrationResponse> registrationAstro()async{
+    final response= await _apiService.post('store-profile',body: {
+      'user_id':user_id,
+
+    },);
+  return RegistrationResponse.fromJson(response as Map<String,dynamic>);
+  }
+
 }
