@@ -25,67 +25,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,)),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "Registration Astrologer",
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Registration Astrologer",
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: TextField(
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: "Enter Your Full Name",
-                  labelStyle: TextStyle(color: Colors.white),
-                  hintStyle: TextStyle(color: Colors.white70),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: TextField(
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "Enter Your Full Name",
+                    labelStyle: TextStyle(color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white70),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: const Text(
-                'Select your gender:',
-                style: TextStyle(fontSize: 18,color: Colors.white),
+              const Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Select your gender:',
+                    style: TextStyle(fontSize: 18,color: Colors.white),
+                  ),
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-              Radio<String>(
-                value: 'Male',
-                groupValue: _selectedGender,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedGender = value;
-                  });
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Radio<String>(
+                        value: 'Male',
+                        groupValue: _selectedGender,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedGender = value;
+                          });
+                        },
+                      ),
+                      title: const Text('Male'),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Radio<String>(
+                        value: 'Female',
+                        groupValue: _selectedGender,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedGender = value;
+                          });
+                        },
+                      ),
+                      title: const Text('Female'),
+                    ),
+                  ),
+                ],
               ),
-              const Text('Male'),
-              Radio<String>(
-                value: 'Female',
-                groupValue: _selectedGender,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedGender = value;
-                  });
-                },
-              ),
-              const Text('Female'),            ],)
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: TextField(
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "Enter Your Full Name",
+                    labelStyle: TextStyle(color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white70),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
+                ),
+              )
 
 
-          ],
+
+            ],
+          ),
         ),
       ),
     );
