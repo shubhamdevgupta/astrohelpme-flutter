@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:astrohelpme/providers/SendOtpProvider.dart';
 import 'package:astrohelpme/utils/Loader.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class ForgotScreen extends StatefulWidget {
 
 class _ForgotScreenState extends State<ForgotScreen> {
   TextEditingController mobileNumberController = TextEditingController();
-
+  TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -74,30 +76,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                           borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  TextField(
-                    //   controller: phoneController,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      // Allows only numbers
-                      LengthLimitingTextInputFormatter(10),
-                      // Limits input to 10 digits
-                    ],
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      labelText: "Enter 6 digit OTP",
-                      labelStyle: TextStyle(color: Colors.white),
-                      hintStyle: TextStyle(color: Colors.white70),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                  ),
+
                   Consumer<SendOtpProvider>(builder: (context, otpProvider, child) {
+                    log('isLoading: ${otpProvider.isLoading}, otpSend: ${otpProvider.otpSend}');
                     return Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Column(
@@ -115,25 +99,47 @@ class _ForgotScreenState extends State<ForgotScreen> {
                                 )),
                           ),
                           if(otpProvider.isLoading==true)
-                            Loader.circularLoader(height: 30)
+                            Loader.circularLoader(height: 30),
+                          if(otpProvider.otpSend==true)...[
+                            TextField(
+                              controller: otpController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                // Allows only numbers
+                                LengthLimitingTextInputFormatter(6),
+                                // Limits input to 10 digits
+                              ],
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                labelText: "Enter 6 digit OTP",
+                                labelStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.white70),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white)),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Verify OTP',
+                                      style: TextStyle(color: Colors.black),
+                                    )),
+                              ),
+                            ),
+                          ]
                         ],
                       ),
 
                     );
                   }),
 
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Verify OTP',
-                            style: TextStyle(color: Colors.black),
-                          )),
-                    ),
-                  ),
                 ],
               ),
             ),
