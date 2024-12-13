@@ -38,6 +38,7 @@ class _LoginState extends State<Login> {
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
               child: Column(
+
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 96.0),
