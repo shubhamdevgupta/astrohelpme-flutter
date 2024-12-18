@@ -16,6 +16,7 @@ class ForgotScreen extends StatefulWidget {
 class _ForgotScreenState extends State<ForgotScreen> {
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -39,7 +40,21 @@ class _ForgotScreenState extends State<ForgotScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 96.0),
+                    padding: EdgeInsets.only(top: 30,left: 18),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 76.0),
                     child: Image.asset(
                       'assets/icons/ic_logo.png',
                     ),
@@ -79,8 +94,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-
-                  Consumer<SendOtpProvider>(builder: (context, otpProvider, child) {
+                  Consumer<SendOtpProvider>(
+                      builder: (context, otpProvider, child) {
                     log('isLoading: ${otpProvider.isLoading}, otpSend: ${otpProvider.otpSend}');
                     return Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -90,7 +105,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  final mobileNumber = mobileNumberController.text;
+                                  final mobileNumber =
+                                      mobileNumberController.text;
                                   otpProvider.sendOtp(context, mobileNumber);
                                 },
                                 child: const Text(
@@ -98,9 +114,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
                                   style: TextStyle(color: Colors.black),
                                 )),
                           ),
-                          if(otpProvider.isLoading==true)
+                          if (otpProvider.isLoading == true)
                             Loader.circularLoader(height: 30),
-                          if(otpProvider.otpSend==true)...[
+                          if (otpProvider.otpSend == true) ...[
                             TextField(
                               controller: otpController,
                               keyboardType: TextInputType.number,
@@ -116,9 +132,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
                                 labelStyle: TextStyle(color: Colors.white),
                                 hintStyle: TextStyle(color: Colors.white70),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white)),
+                                    borderSide:
+                                        BorderSide(color: Colors.white)),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white)),
+                                    borderSide:
+                                        BorderSide(color: Colors.white)),
                               ),
                             ),
                             Padding(
@@ -136,10 +154,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                           ]
                         ],
                       ),
-
                     );
                   }),
-
                 ],
               ),
             ),

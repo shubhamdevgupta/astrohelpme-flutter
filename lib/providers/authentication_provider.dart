@@ -10,19 +10,25 @@ class AuthenticationProvider extends ChangeNotifier {
   String? _loginStatus;
   String? _accessToken;
   User? _loggedInUser;
-  bool? _isLoading ; // Track loading state
-
+  bool? _isLoading; // Track loading state
 
   String? get loginStatus => _loginStatus;
+
   String? get accessToken => _accessToken;
+
   User? get loggedInUser => _loggedInUser;
+
   bool? get isLoading => _isLoading;
 
   Future<void> loginUser(
       BuildContext context, String phoneNumber, String password) async {
+    bool isValid = await validateInput(phoneNumber, password, context);
+    if (!isValid) {
+      return;
+    }
     Loader.circularLoader();
     try {
-      _isLoading=true;
+      _isLoading = true;
       notifyListeners();
       final loginResponse =
           await _userRepository.loginUser(phoneNumber, password);
@@ -40,9 +46,24 @@ class AuthenticationProvider extends ChangeNotifier {
     } catch (e) {
       _loginStatus = 'Error: $e';
     } finally {
-      _isLoading=false;
+      _isLoading = false;
 
       notifyListeners();
     }
+  }
+
+  Future<bool> validateInput(
+      String phoneNumber, String password, BuildContext context) async {
+    if (phoneNumber.isEmpty || phoneNumber.length != 10) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Enter Valid Mobile Number')));
+      return false;
+    }
+   else if (password.isEmpty || password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pasword cannot be empty or less then 6 ')));
+      return false;
+    }
+    return true;
   }
 }
